@@ -1,0 +1,48 @@
+.breadcrumbContainer {
+    font-size: 13px;
+    background-color: #e8e8e8;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: none;
+}
+
+.breadcrumbContainer:hover::-webkit-scrollbar {
+    height: 6px;
+}
+
+.breadcrumbContainer::-webkit-scrollbar {
+    display: none;
+    height: 0px;
+}
+
+.breadcrumbContainer {
+    scrollbar-width: thin;
+    scrollbar-color: #ccc transparent;
+}
+
+.breadcrumbContainer::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.breadcrumbContainer::-webkit-scrollbar-thumb {
+    background-color: #999;
+    border-radius: 4px;
+}
+
+.breadcrumb {
+    padding: 4px 7px;
+    width: max-content;
+}
+
+.crumb {
+    cursor: pointer;
+    color: #007bff;
+}
+
+.separator {
+    margin: 0 6px;
+    color: #aaa;
+    cursor: default;
+}

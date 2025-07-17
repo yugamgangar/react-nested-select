@@ -1,0 +1,40 @@
+.optionList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.option {
+  padding: 8px 12px;
+  border-radius: 3px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  transition: background 0.2s ease;
+  border: solid 1px transparent;
+}
+
+.option:hover {
+  background: #e8e8e8;
+  border-color: blue;
+}
+
+.arrow {
+  color: #aaa;
+  font-size: 12px;
+}
+
+.icon {
+  height: 14px;
+  width: 14px;
+  margin-right: 7px;
+}
+
+.optionTitle {
+  display: flex;
+  align-items: center;
+}
