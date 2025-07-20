@@ -1,0 +1,15 @@
+.dropdownContainer {
+  width: 350px;
+  margin-top: 120px;
+}
+
+.selectedValue {
+  height: 35px;
+  font-size: 14px;
+  display: flex;
+  visibility: hidden;
+}
+
+.selectedValueVisible {
+  visibility: visible;
+}

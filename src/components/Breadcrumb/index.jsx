@@ -6,11 +6,11 @@ function Breadcrumb({ path, onBreadcrumbClick }) {
     <div className={styles.breadcrumbContainer}>
       <div className={styles.breadcrumb}>
       {path.map((name, index) => (
-          <>
-        <span key={Date.now()} onClick={() => onBreadcrumbClick(index)} className={styles.crumb}>
+          <React.Fragment key={index}>
+        <span onClick={() => onBreadcrumbClick(index)} className={styles.crumb}>
           {name}</span>
           <span className={styles.separator}>{index < path.length - 1 && ' / '}</span>
-          </>
+          </React.Fragment>
       ))}
       </div>
     </div>

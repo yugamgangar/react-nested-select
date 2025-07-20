@@ -5,7 +5,7 @@ function TextInput({ selectedValue, searchQuery, onSearchChange, onFocus, onLeav
     return (
         <input
             type="text"
-            className={styles.TextInput}
+            className={styles.inputBox}
             placeholder={'Select an option'}
             value={searchQuery || selectedValue}
             onChange={(e) => onSearchChange(e.target.value)}

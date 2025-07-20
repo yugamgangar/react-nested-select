@@ -10,14 +10,14 @@ function OptionList({ categorizedOptions, onSelect }) {
           <div className={styles.categoryName}>{cat.name}</div>
           {cat.options.map((option) => (
             <div
-              key={`${option.value}_${idx}`}
+              key={option.id}
               className={styles.option}
               onClick={() => onSelect(option)}>
               <span className={styles.optionTitle}>
               <Icon name={option.icon} className={styles.icon} />
               {option.name}
               </span>
-              {option.options && <span className={styles.arrow}>›</span>}
+              {option.options?.length ? <span className={styles.arrow}>›</span> : null}
             </div>
           ))}
         </div>

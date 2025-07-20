@@ -10,6 +10,11 @@ import MasterRecordIcon from "../../assets/icons/master_record.svg";
 import ModifiedIcon from "../../assets/icons/modified.svg";
 import DefaultIcon from "../../assets/icons/default.svg";
 
+const iconStyle = {
+  height: "14px",
+  width: "14px",
+  marginRight: "7px"
+}
 
 const Icon = ({ name, ...props }) => {
   const iconTypes = {
@@ -26,7 +31,7 @@ const Icon = ({ name, ...props }) => {
 };
 
   const IconSvg = iconTypes[name] ?? iconTypes.default;
-  return <IconSvg {...props} />;
+  return <IconSvg style={iconStyle} {...props} />;
 };
 
 export default Icon;

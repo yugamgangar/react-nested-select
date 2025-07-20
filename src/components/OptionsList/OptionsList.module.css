@@ -6,6 +6,11 @@
   overflow-y: auto;
 }
 
+.categoryName {
+  font-weight: bold;
+  font-size: 15px;
+}
+
 .option {
   padding: 8px 12px;
   border-radius: 3px;
@@ -20,18 +25,13 @@
 
 .option:hover {
   background: #e8e8e8;
-  border-color: blue;
+  border-color: steelblue;
 }
 
 .arrow {
   color: #aaa;
-  font-size: 12px;
-}
-
-.icon {
-  height: 14px;
-  width: 14px;
-  margin-right: 7px;
+  font-size: 14px;
+  font-weight: bold;
 }
 
 .optionTitle {

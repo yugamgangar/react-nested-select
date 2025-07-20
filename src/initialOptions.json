@@ -1,0 +1,254 @@
+{
+  "initialOptions": [
+    {
+      "name": "All Resources",
+      "value": "AllResources",
+      "type": "OPTION",
+      "icon": "allResources",
+      "options": [
+        {
+          "name": "Record Variables",
+          "type": "CATEGORY",
+          "options": [
+            {
+              "name": "Account",
+              "value": "Account",
+              "type": "OPTION",
+              "icon": "account",
+              "options": [
+                {
+                  "name": "Relationship Fields",
+                  "type": "CATEGORY",
+                  "options": [
+                    {
+                      "name": "Created By ID",
+                      "value": "CreatedBy",
+                      "icon": "addDate",
+                      "type": "OPTION",
+                      "options": [
+                        {
+                          "name": "Relationship Fields",
+                          "type": "CATEGORY",
+                          "options": [
+                            {
+                              "name": "Created By ID",
+                              "value": "CreatedBy",
+                              "icon": "addDate",
+                              "type": "OPTION"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "name": "D&B Company ID",
+                      "value": "D&BCompany",
+                      "icon": "default",
+                      "type": "OPTION",
+                      "options": [
+                        {
+                          "name": "Relationship Fields",
+                          "type": "CATEGORY",
+                          "options": [
+                            {
+                              "name": "Created By ID",
+                              "value": "CreatedBy",
+                              "icon": "addDate",
+                              "type": "OPTION"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "name": "Last Modified By ID",
+                      "value": "LastModifiedBy",
+                      "icon": "modified",
+                      "type": "OPTION",
+                      "options": [
+                        {
+                          "name": "Relationship Fields",
+                          "type": "CATEGORY",
+                          "options": [
+                            {
+                              "name": "Last Modified By ID",
+                              "value": "LastModifiedBy",
+                              "icon": "modified",
+                              "type": "OPTION",
+                              "options": [
+                                {
+                                  "name": "Relationship Fields",
+                                  "type": "CATEGORY",
+                                  "options": [
+                                    {
+                                      "name": "ID",
+                                      "value": "id",
+                                      "icon": "default",
+                                      "type": "OPTION"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "name": "Master Record ID",
+                      "value": "MasterRecord",
+                      "icon": "masterRecord",
+                      "type": "OPTION",
+                      "options": [
+                        {
+                          "name": "Relationship Fields",
+                          "type": "CATEGORY",
+                          "options": [
+                            {
+                              "name": "Created By ID",
+                              "value": "CreatedBy",
+                              "icon": "addDate",
+                              "type": "OPTION"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "name": "Operating Hour ID",
+                      "value": "OperatingHour",
+                      "icon": "default",
+                      "type": "OPTION",
+                      "options": [
+                        {
+                          "name": "Relationship Fields",
+                          "type": "CATEGORY",
+                          "options": [
+                            {
+                              "name": "Created By ID",
+                              "value": "CreatedBy",
+                              "icon": "addDate",
+                              "type": "OPTION"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "name": "Owner ID",
+                      "value": "Owner",
+                      "icon": "account",
+                      "type": "OPTION",
+                      "options": [
+                        {
+                          "name": "Relationship Fields",
+                          "type": "CATEGORY",
+                          "options": [
+                            {
+                              "name": "Created By ID",
+                              "value": "CreatedBy",
+                              "icon": "addDate",
+                              "type": "OPTION"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "name": "Custom ID",
+                      "value": "CustomId",
+                      "icon": "masterRecord",
+                      "type": "OPTION"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Contact",
+              "value": "Contact",
+              "icon": "contact",
+              "type": "OPTION",
+              "options": [
+                {
+                  "name": "Relationship Fields",
+                  "type": "CATEGORY",
+                  "options": [
+                    {
+                      "name": "Created By ID",
+                      "value": "CreatedBy",
+                      "icon": "addDate",
+                      "type": "OPTION"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Global Constants",
+          "type": "CATEGORY",
+          "options": [
+            {
+              "name": "False",
+              "value": "False",
+              "type": "OPTION",
+              "icon": "boolean"
+            },
+            {
+              "name": "True",
+              "value": "True",
+              "type": "OPTION",
+              "icon": "boolean"
+            },
+            {
+              "name": "Blank Value (Empty String)",
+              "value": "Blank",
+              "type": "OPTION",
+              "icon": "default"
+            }
+          ]
+        },
+        {
+          "name": "Global Variables",
+          "type": "CATEGORY",
+          "options": [
+            {
+              "name": "API",
+              "value": "API",
+              "icon": "api",
+              "type": "OPTION",
+              "options": [
+                {
+                  "name": "Relationship Fields",
+                  "type": "CATEGORY",
+                  "options": [
+                    {
+                      "name": "Created By ID",
+                      "value": "CreatedBy",
+                      "type": "OPTION",
+                      "icon": "addDate"
+                    },
+                    {
+                      "name": "D&B Company ID",
+                      "value": "D&BCompany",
+                      "type": "OPTION",
+                      "icon": "default"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Custom Hierarchy Settings",
+              "value": "CustomHierarchySettings",
+              "type": "OPTION",
+              "icon": "hierarchy"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

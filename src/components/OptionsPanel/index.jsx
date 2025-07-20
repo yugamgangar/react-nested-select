@@ -11,6 +11,12 @@ const OptionsPanel = ({ breadcrumbPath, categorizedOptions, onSelect, onBreadcru
         <Breadcrumb path={breadcrumbPath} onBreadcrumbClick={onBreadcrumbClick} />
         <OptionList categorizedOptions={categorizedOptions} onSelect={onSelect} />
         {/* <CreateNewResource onClick={onAddNew} /> */}
+        <div className={styles.newOption} onClick={onAddNew}>
+              <span className={styles.newOptionTitle}>
+              {/* <Icon name="+" className={styles.icon} /> */}
+              + New Resource
+              </span>
+        </div>
       </div>
     </div>
   );

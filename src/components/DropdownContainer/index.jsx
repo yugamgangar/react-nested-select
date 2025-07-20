@@ -1,62 +1,91 @@
-import React, { useState, useMemo } from 'react';
-import TextInput from '../TextInput';
-import OptionsPanel from '../OptionsPanel';
-import NewResourceModal from '../NewResourceModal';
-import data from '../../utils/data';
-import { buildOptionMap } from '../../utils/helpers';
-import useCategorizedOptions from '../../hooks/useCategorizedOptions';
+import React, { useState, useEffect, useReducer } from "react";
+import TextInput from "../TextInput";
+import OptionsPanel from "../OptionsPanel";
+import NewResourceModal from "../NewResourceModal";
+import { buildOptionMap, loadInitialOptions } from "../../utils/helpers";
+import useCategorizedOptions from "../../hooks/useCategorizedOptions";
+import dropdownReducer, { initialState } from "../../reducers/dropdownReducer";
+import { OPTION_TYPES } from "../../utils/constants";
+import styles from "./DropdownContainer.module.css";
 
 function DropdownContainer() {
-  const [options, setOptions] = useState(data);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [currentPath, setCurrentPath] = useState(['all_res']);
-  const [selectedValue, setSelectedValue] = useState('');
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [availableCategories, setAvailableCategories] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const optionMap = useMemo(() => buildOptionMap(options), [options]);
+  const [state, dispatch] = useReducer(dropdownReducer, initialState);
+  const {
+    options,
+    selectedPath,
+    searchQuery,
+    selectedValue,
+    optionMap,
+  } = state;
 
- const { breadcrumb, filteredCategories } = useCategorizedOptions(
+  useEffect(() => {
+    const initialOptions = loadInitialOptions();
+    const optionMap = buildOptionMap(initialOptions);
+    const selectedPath = [initialOptions[0]?.id]; // Adding base node as selected by default.
+    
+    dispatch({
+      type: "INITIALIZE_OPTIONS",
+      payload: { options: initialOptions, optionMap, selectedPath },
+    });
+  }, []);
+
+  const { currentNode, breadcrumb, filteredCategories } = useCategorizedOptions(
     options,
     optionMap,
-    currentPath,
+    selectedPath,
     searchQuery
   );
 
-  const handleSelect = (option) => {
-    const {type, options: nestedOptions, id} = option
-     
-    if (type === 'OPTION' && (!nestedOptions || !nestedOptions.length)) {
-      setSelectedValue(optionMap.get(id)?.fullPath || '');
-      setCurrentPath([]);
+  useEffect(() => {
+    if (isModalOpen && currentNode?.options.length) {
+      const categories = currentNode.options
+        .filter((opt) => opt.type === OPTION_TYPES.CATEGORY)
+        .map((cat) => ({ id: cat.id, name: cat.name }));
+      setAvailableCategories(categories);
+    }
+  }, [isModalOpen, currentNode]);
+
+  function handleSelect(option) {
+    const { type, options: nestedOptions, id } = option;
+
+    if (
+      type === OPTION_TYPES.OPTION &&
+      (!nestedOptions || nestedOptions.length === 0)
+    ) {
+      const path = `!{${optionMap.get(id)?.fullPath}}` || "";
+      dispatch({ type: "SET_SELECTED_VALUE", payload: path });
       setIsDropdownOpen(false);
-      setSearchQuery(selectedValue);
     }
-    if (type === 'OPTION' && nestedOptions?.length) {
-      setCurrentPath([...currentPath, id]);
-      setSearchQuery('');
+    if (type === OPTION_TYPES.OPTION && nestedOptions?.length) {
+      const path = `!{${optionMap.get(id)?.fullPath}.}` || "";
+      dispatch({ type: "NAVIGATE_FORWARD", payload: { id, path } });
     }
-  };
+  }
 
-  const handleBreadcrumbClick = (index) => {
-    const newPath = currentPath.slice(0, index + 1);
-    setCurrentPath(newPath);
-    setSearchQuery('');
-  };
+  function handleBreadcrumbClick(index) {
+    dispatch({ type: "NAVIGATE_TO_BREADCRUMB", payload: index });
+  }
 
-  const handleAddNew = () => setIsModalOpen(true);
-  const handleModalClose = () => setIsModalOpen(false);
+  function handleAddResource(name, categoryId) {
+    dispatch({ type: "ADD_RESOURCE", payload: { name, categoryId } });
+  }
 
-  const handleSaveNew = (newItem) => {
-    // const updated = updateOptionsAtPath(optionsTree, path, newItem);
-    // setOptionsTree(updated);
-    // setIsModalOpen(false);
-  };
-
-  const selectedLabel = currentPath.length ? `{${currentPath.join('.')}}` : '';
+  function setSearchQuery(value) {
+    dispatch({ type: "SET_SEARCH_QUERY", payload: value });
+  }
 
   return (
-    <div style={{ position: 'relative', width: '300px' }}>
+    <div className={styles.dropdownContainer}>
+      <span
+        className={`${styles.selectedValue} ${
+          selectedValue ? styles.selectedValueVisible : ""
+          }`}>
+        Selected: {selectedValue}
+      </span>
       <TextInput
         selectedValue={selectedValue}
         searchQuery={searchQuery}
@@ -65,23 +94,24 @@ function DropdownContainer() {
         onLeaveFocus={() => setIsDropdownOpen(false)}
       />
       {isDropdownOpen && (
-      <OptionsPanel
-        breadcrumbPath={breadcrumb}
-        categorizedOptions={filteredCategories}
-        onSelect={handleSelect}
-        onBreadcrumbClick={handleBreadcrumbClick}
-        onAddNew={handleAddNew}
-        // searchQuery={searchQuery}
-      />
-      )}
-      {selectedValue && (
-        <div>Selected: {selectedValue}</div>
+        <OptionsPanel
+          breadcrumbPath={breadcrumb}
+          categorizedOptions={filteredCategories}
+          onSelect={handleSelect}
+          onBreadcrumbClick={handleBreadcrumbClick}
+          onAddNew={() => setIsModalOpen(true)}
+          searchQuery={searchQuery}
+        />
       )}
       {isModalOpen && (
-        <NewResourceModal onSave={handleSaveNew} onClose={handleModalClose} />
+        <NewResourceModal
+          categories={availableCategories}
+          onSave={handleAddResource}
+          onClose={() => setIsModalOpen(false)}
+        />
       )}
     </div>
   );
-};
+}
 
 export default DropdownContainer;
