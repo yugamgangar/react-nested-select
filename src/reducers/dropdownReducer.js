@@ -48,10 +48,12 @@ const dropdownReducer = (state, action) => {
                 searchQuery: action.payload.path,
             };
         case "NAVIGATE_TO_BREADCRUMB":
+            const updatedSelectedPath = state.selectedPath.slice(0, action.payload + 1)
             return {
                 ...state,
-                selectedPath: state.selectedPath.slice(0, action.payload + 1),
+                selectedPath: updatedSelectedPath,
                 searchQuery: "",
+                selectedValue: updatedSelectedPath.length > 1 ? selectedValue : ""
             };
         case "SET_SEARCH_QUERY":
             return {

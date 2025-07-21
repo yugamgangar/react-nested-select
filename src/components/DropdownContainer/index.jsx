@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useReducer } from "react";
+import React, { useState, useEffect, useReducer, useRef } from "react";
 import TextInput from "../TextInput";
 import OptionsPanel from "../OptionsPanel";
 import NewResourceModal from "../NewResourceModal";
@@ -9,6 +9,7 @@ import { OPTION_TYPES } from "../../utils/constants";
 import styles from "./DropdownContainer.module.css";
 
 function DropdownContainer() {
+  const containerRef = useRef(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [availableCategories, setAvailableCategories] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -32,6 +33,21 @@ function DropdownContainer() {
       payload: { options: initialOptions, optionMap, selectedPath },
     });
   }, []);
+
+  useEffect(() => {
+    function handleOutsideClick(event) {
+      if (
+        isDropdownOpen &&
+        containerRef.current &&
+        !containerRef.current.contains(event.target)
+      ) {
+        setIsDropdownOpen(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleOutsideClick);
+    return () => document.removeEventListener("mousedown", handleOutsideClick);
+  }, [isDropdownOpen]);
 
   const { currentNode, breadcrumb, filteredCategories } = useCategorizedOptions(
     options,
@@ -85,7 +101,7 @@ function DropdownContainer() {
   }
 
   return (
-    <div className={styles.dropdownContainer}>
+    <div ref={containerRef} className={styles.dropdownContainer}>
       <span
         className={`${styles.selectedValue} ${
           selectedValue ? styles.selectedValueVisible : ""
@@ -96,7 +112,6 @@ function DropdownContainer() {
         searchQuery={searchQuery}
         onSearchChange={setSearchQuery}
         onFocus={() => setIsDropdownOpen(true)}
-        onLeaveFocus={() => setIsDropdownOpen(false)}
       />
       {isDropdownOpen && (
         <OptionsPanel
