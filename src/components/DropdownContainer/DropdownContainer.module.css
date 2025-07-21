@@ -1,6 +1,6 @@
 .dropdownContainer {
   width: 350px;
-  margin-top: 120px;
+  position: relative;
 }
 
 .selectedValue {

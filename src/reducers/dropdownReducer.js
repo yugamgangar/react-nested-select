@@ -45,7 +45,6 @@ const dropdownReducer = (state, action) => {
             return {
                 ...state,
                 selectedPath: [...state.selectedPath, action.payload.id],
-                selectedValue: action.payload.path,
                 searchQuery: action.payload.path,
             };
         case "NAVIGATE_TO_BREADCRUMB":
@@ -63,9 +62,15 @@ const dropdownReducer = (state, action) => {
             return {
                 ...state,
                 selectedValue: action.payload,
-                searchQuery: action.payload,
-                selectedPath: [],
+                searchQuery: action.payload
             };
+        case "RESET_SEARCH":
+            return {
+                ...state,
+                selectedPath: [state.options[0].id],
+                searchQuery: "",
+                selectedValue: "",
+            }
         case "ADD_RESOURCE": {
             const { name, categoryId } = action.payload;
             const newOption = {

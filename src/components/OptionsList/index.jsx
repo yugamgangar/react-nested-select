@@ -17,7 +17,7 @@ function OptionList({ categorizedOptions, onSelect }) {
               <Icon name={option.icon} className={styles.icon} />
               {option.name}
               </span>
-              {option.options?.length ? <span className={styles.arrow}>›</span> : null}
+              {option.options?.length ? <span className={styles.arrow}>&gt;</span> : null}
             </div>
           ))}
         </div>

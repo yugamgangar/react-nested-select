@@ -75,7 +75,13 @@ function DropdownContainer() {
   }
 
   function setSearchQuery(value) {
-    dispatch({ type: "SET_SEARCH_QUERY", payload: value });
+    const trimmedValue = value.trim();
+    if(!trimmedValue.length){
+      dispatch({ type: "RESET_SEARCH" });
+    }
+    else {
+      dispatch({ type: "SET_SEARCH_QUERY", payload: trimmedValue });
+    }
   }
 
   return (
@@ -87,7 +93,6 @@ function DropdownContainer() {
         Selected: {selectedValue}
       </span>
       <TextInput
-        selectedValue={selectedValue}
         searchQuery={searchQuery}
         onSearchChange={setSearchQuery}
         onFocus={() => setIsDropdownOpen(true)}
