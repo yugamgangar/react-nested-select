@@ -53,7 +53,7 @@ const dropdownReducer = (state, action) => {
                 ...state,
                 selectedPath: updatedSelectedPath,
                 searchQuery: "",
-                selectedValue: updatedSelectedPath.length > 1 ? selectedValue : ""
+                selectedValue: updatedSelectedPath.length > 1 ? state.selectedValue : ""
             };
         case "SET_SEARCH_QUERY":
             return {
