@@ -10,18 +10,19 @@ export const initialState = {
     optionMap: new Map()
 };
 
-function cloneAndInsert(nodes, categoryId, newOption) {
+function cloneAndInsert(nodes, parentId, newResource) {
+
     return nodes.map((node) => {
-        if (node.type === OPTION_TYPES.CATEGORY && node.id === categoryId) {
+        if (node.id === parentId) {
             return {
                 ...node,
-                options: [...(node.options || []), newOption],
+                options: [...(node.options || []), newResource],
             };
         }
         if (node.options) {
             return {
                 ...node,
-                options: cloneAndInsert(node.options, categoryId, newOption),
+                options: cloneAndInsert(node.options, parentId, newResource),
             };
         }
         return node;
@@ -48,12 +49,9 @@ const dropdownReducer = (state, action) => {
                 searchQuery: action.payload.path,
             };
         case "NAVIGATE_TO_BREADCRUMB":
-            const updatedSelectedPath = state.selectedPath.slice(0, action.payload + 1)
             return {
                 ...state,
-                selectedPath: updatedSelectedPath,
-                searchQuery: "",
-                selectedValue: updatedSelectedPath.length > 1 ? state.selectedValue : ""
+                ...action.payload
             };
         case "SET_SEARCH_QUERY":
             return {
@@ -87,6 +85,26 @@ const dropdownReducer = (state, action) => {
                 updatedOptions,
                 updatedOptionMap,
             } = updateTreeAndMapWithNewOption(state.options, categoryId, newOption);
+
+            localStorage.setItem("dropdownOptions", JSON.stringify(updatedOptions));
+            return {
+                ...state,
+                options: updatedOptions,
+                optionMap: updatedOptionMap,
+            };
+        }
+        case 'ADD_CATEGORY': {
+            const { name } = action.payload;
+            const parentId = state.selectedPath[state.selectedPath.length - 1];
+            const newCategory = {
+                id: uuidv4(),
+                name: name.trim(),
+                type: OPTION_TYPES.CATEGORY,
+                options: []
+            };
+
+            const updatedOptions = cloneAndInsert(state.options, parentId, newCategory);
+            const updatedOptionMap = buildOptionMap(updatedOptions);
 
             localStorage.setItem("dropdownOptions", JSON.stringify(updatedOptions));
             return {

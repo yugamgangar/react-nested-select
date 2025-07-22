@@ -17,12 +17,27 @@
   border-radius: 5px;
   min-width: 320px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  font-size: 13px;
 }
 
 .title {
   font-size: 18px;
   font-weight: 600;
   margin-bottom: 16px;
+}
+
+.radioTitle {
+  font-size: 14px;
+  margin-bottom: 10px;
+  display: block;
+}
+
+.fieldGroup {
+  margin-bottom: 15px;
+}
+
+.fieldGroup > label {
+  font-size: 14px;
 }
 
 .input {
@@ -41,13 +56,13 @@
 .radioLabel {
   display: block;
   margin-bottom: 8px;
-  font-size: 14px;
+  font-size: 13px;
   cursor: pointer;
 }
 
 .error {
   color: red;
-  font-size: 12px;
+  font-size: 11px;
   margin-bottom: 12px;
 }
 
@@ -62,7 +77,7 @@
   padding: 6px 12px;
   border: none;
   border-radius: 4px;
-  font-size: 14px;
+  font-size: 13px;
   cursor: pointer;
 }
 
@@ -74,4 +89,9 @@
 .confirmBtn {
   background-color: steelblue;
   color: white;
+}
+
+.buttonGroup {
+  display: flex;
+  justify-content: space-between;
 }

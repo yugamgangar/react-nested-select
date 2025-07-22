@@ -83,11 +83,24 @@ function DropdownContainer() {
   }
 
   function handleBreadcrumbClick(index) {
-    dispatch({ type: "NAVIGATE_TO_BREADCRUMB", payload: index });
+    const updatedSelectedPath = selectedPath.slice(0, index + 1);
+    const clickedOption = optionMap.get(selectedPath[index]);
+    const updatedSearchQuery = `!{${clickedOption.fullPath}.}` || "";
+    let updatedSelectedValue = selectedValue;
+
+    if(clickedOption.node?.options){
+      updatedSelectedValue = "";
+    }
+    
+    dispatch({ type: "NAVIGATE_TO_BREADCRUMB", payload: {selectedPath: updatedSelectedPath, searchQuery: updatedSearchQuery, selectedValue: updatedSelectedValue } });
   }
 
-  function handleAddResource(name, categoryId) {
-    dispatch({ type: "ADD_RESOURCE", payload: { name, categoryId } });
+  function handleAddResource({ name, categoryId, type }) {
+    if (type === OPTION_TYPES.CATEGORY) {
+        dispatch({ type: 'ADD_CATEGORY', payload: { name } });
+    } else {
+        dispatch({ type: 'ADD_RESOURCE', payload: { name, categoryId } });
+    }
   }
 
   function setSearchQuery(value) {
